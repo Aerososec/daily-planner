@@ -3,6 +3,6 @@ package com.example.dailyplanner.domain.repository
 import com.example.dailyplanner.domain.model.Task
 
 interface TaskRepository {
-    suspend fun getTasksForDay() : List<Task>
-    suspend fun insertTask()
+    suspend fun getTasksForDay(startDate : Long, finishDate : Long) : List<Task>
+    suspend fun insertTask(task: Task)
 }

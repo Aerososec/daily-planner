@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class TaskDbModel(
     @PrimaryKey(autoGenerate = true)
     val id : Long = 0,
-    val dateState : Long,
+    val dateStart : Long,
     val dateFinish : Long,
     val name : String,
     val description : String
