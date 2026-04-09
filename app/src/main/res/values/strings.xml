@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DailyPlanner</string>
+    <string name="default_task_name">Название задачи</string>
+    <string name="default_time_period">14:00 – 15:00</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_date">Сегодня, 9 апреля 2026</string>
 </resources>

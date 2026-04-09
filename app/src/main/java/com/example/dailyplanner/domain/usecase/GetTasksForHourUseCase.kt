@@ -4,8 +4,8 @@ import com.example.dailyplanner.domain.model.Task
 import com.example.dailyplanner.domain.model.TasksInHour
 import javax.inject.Inject
 
-class GetTasksForHour @Inject constructor() {
-    operator fun invoke(listTasks : List<Task>, startDay : Long){
+class GetTasksForHourUseCase @Inject constructor() {
+    operator fun invoke(listTasks : List<Task>, startDay : Long) : List<TasksInHour>{
 
         val tasksByHours = mutableListOf<TasksInHour>()
 
@@ -25,6 +25,8 @@ class GetTasksForHour @Inject constructor() {
                 )
             )
         }
+
+        return tasksByHours
     }
 
     companion object{
