@@ -13,8 +13,7 @@ import javax.inject.Inject
 
 class GetTasksViewModel @Inject constructor(
     private val getTasksForHourUseCase: GetTasksForHourUseCase,
-    private val getTasksForDayUseCase: GetTasksForDayUseCase,
-    private val insertTaskUseCase: InsertTaskUseCase
+    private val getTasksForDayUseCase: GetTasksForDayUseCase
 ) : ViewModel() {
 
     private val _schedule = MutableStateFlow<List<TasksInHour>>(emptyList())
