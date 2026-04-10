@@ -6,9 +6,13 @@ import com.example.dailyplanner.domain.model.TasksInHour
 import com.example.dailyplanner.domain.usecase.GetTasksForDayUseCase
 import com.example.dailyplanner.domain.usecase.GetTasksForHourUseCase
 import com.example.dailyplanner.domain.usecase.InsertTaskUseCase
+import com.example.dailyplanner.presentaion.utils.formatStringDate
+import com.example.dailyplanner.presentaion.utils.toStartOfDay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.Calendar
 import javax.inject.Inject
 
 class GetTasksViewModel @Inject constructor(
@@ -19,13 +23,13 @@ class GetTasksViewModel @Inject constructor(
     private val _schedule = MutableStateFlow<List<TasksInHour>>(emptyList())
     val schedule = _schedule.asStateFlow()
 
-    fun getTaskForDay(dayStart : Long){
+    fun getTaskForDay(day : LocalDate){
+        val selectedDay = day.toStartOfDay()
         viewModelScope.launch {
-            val dayFinish = dayStart + HOURS_IN_DAY * HOUR_IN_MILLIS
-            val dayTasks = getTasksForDayUseCase(dayStart, dayFinish)
-            _schedule.value = getTasksForHourUseCase(dayTasks, dayStart)
+            val dayFinish = selectedDay + HOURS_IN_DAY * HOUR_IN_MILLIS
+            val dayTasks = getTasksForDayUseCase(selectedDay, dayFinish)
+            _schedule.value = getTasksForHourUseCase(dayTasks, selectedDay)
         }
-
     }
 
     companion object{
