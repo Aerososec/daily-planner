@@ -14,11 +14,14 @@ import dagger.Provides
 class AppDataBaseModule {
     @Provides
     fun provideDataBase(application: Application) : AppDataBase{
+
+        application.deleteDatabase(DB_NAME)
+
         return Room.databaseBuilder(
             application,
             AppDataBase::class.java,
             DB_NAME
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

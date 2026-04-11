@@ -16,6 +16,7 @@ import com.example.dailyplanner.databinding.FragmentCalendarWithTasksBinding
 import com.example.dailyplanner.di.factory.ViewModelFactory
 import com.example.dailyplanner.presentaion.calendarScreen.GetTasksViewModel
 import com.example.dailyplanner.presentaion.calendarScreen.recyclerView.TasksForHourAdapter
+import com.example.dailyplanner.presentaion.taskScreen.fragment.CreateTaskFragment
 import com.example.dailyplanner.presentaion.utils.formatStringDate
 import com.example.dailyplanner.presentaion.utils.toStartOfDay
 import kotlinx.coroutines.launch
@@ -63,6 +64,17 @@ class CalendarWithTasksFragment : Fragment() {
         }
 
         chooseDay()
+
+        binding.fabAddTask.setOnClickListener {
+            openCreateTaskFragment()
+        }
+    }
+
+    private fun openCreateTaskFragment(){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, CreateTaskFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun chooseDay() {

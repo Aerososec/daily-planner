@@ -5,4 +5,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_date">Сегодня, 9 апреля 2026</string>
+    <string name="date_string">Дата</string>
+    <string name="time_string">Время</string>
+    <string name="description_string">Описание</string>
+    <string name="create_task_string">Создать задачу</string>
+    <string name="end_time_string">Время окончания</string>
+    <string name="start_time_string">Время начала</string>
 </resources>

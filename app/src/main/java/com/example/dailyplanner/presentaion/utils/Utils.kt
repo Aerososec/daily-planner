@@ -3,6 +3,7 @@ package com.example.dailyplanner.presentaion.utils
 import com.example.dailyplanner.domain.model.Task
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -29,3 +30,9 @@ fun LocalDate.toStartOfDay(): Long{
         .toEpochMilli()
 }
 
+fun LocalDateTime.toMillis(): Long {
+    return this
+        .atZone(ZoneId.systemDefault())
+        .toInstant()
+        .toEpochMilli()
+}
