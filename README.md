@@ -11,9 +11,12 @@
 * Отображение всех задач в соответствующем временном интервале
 * Возможность просмотреть подробности о задачи при нажатии на соответствующую ячейку
 * Кнопка для создания новой задачи
-<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/f9d4fe2c-e85f-4bcd-89a5-401b93a82d4d" />
-<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/d07f1289-f7d7-4e3f-9841-6e6829d8566a" />
-<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/b5f957b0-8220-4eea-8651-ac2064e3101d" />
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f9d4fe2c-e85f-4bcd-89a5-401b93a82d4d" width="250"/>
+  <img src="https://github.com/user-attachments/assets/d07f1289-f7d7-4e3f-9841-6e6829d8566a" width="250"/>
+  <img src="https://github.com/user-attachments/assets/b5f957b0-8220-4eea-8651-ac2064e3101d" width="250"/>
+</p>
 
 
 
@@ -29,6 +32,9 @@
 * Проверка данных на корректность:
   * Нельзя создать задачу в прошлом
   * Время окончания должно быть больше времени начала
-<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/63382b68-affe-46fd-8394-5d8f23b557b0" />
-<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/0f20afa6-faa6-43ab-84d2-dfbe2de36cb5" />
-<img width="1344" height="2992" alt="image" src="https://github.com/user-attachments/assets/199194a1-39a2-4f6c-8810-82e228146ad6" />
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/63382b68-affe-46fd-8394-5d8f23b557b0" width="250"/>
+  <img src="https://github.com/user-attachments/assets/0f20afa6-faa6-43ab-84d2-dfbe2de36cb5" width="250"/>
+  <img src="https://github.com/user-attachments/assets/199194a1-39a2-4f6c-8810-82e228146ad6" width="250"/>
+</p>
