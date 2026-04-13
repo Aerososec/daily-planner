@@ -91,8 +91,6 @@ class CreateTaskFragment : Fragment() {
             showTimePicker(binding.etEndTime)
         }
 
-
-
         binding.btnCreateTask.setOnClickListener {
             val name = binding.etTaskName.text.toString()
             val description = binding.etTaskDescription.text.toString()
@@ -141,6 +139,16 @@ class CreateTaskFragment : Fragment() {
                 taskId = tasks[currentIndex].id
                 updateNavigation()
             }
+        }
+
+        binding.btnDeleteTask.setOnClickListener {
+            val task = tasks[currentIndex]
+            viewLifecycleOwner.lifecycleScope.launch{
+                viewModel.deleteTask(task)
+            }
+
+            if (tasks.size == 1) parentFragmentManager.popBackStack()
+
         }
     }
 
@@ -276,7 +284,7 @@ class CreateTaskFragment : Fragment() {
         val startPeriod = args.getLong(START_PERIOD_KEY)
         val endPeriod = args.getLong(END_PERIOD_KEY)
 
-        viewModel.getTasksForPeriod(startPeriod, endPeriod)
+        viewModel.loadTasksForPeriod(startPeriod, endPeriod)
     }
 
 

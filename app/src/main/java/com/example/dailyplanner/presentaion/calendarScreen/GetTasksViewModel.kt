@@ -21,21 +21,28 @@ class GetTasksViewModel @Inject constructor(
     private val getTasksForDayUseCase: GetTasksForDayUseCase
 ) : ViewModel() {
 
+    private val _selectedDay = MutableStateFlow<LocalDate?>(null)
+
     private val _schedule = MutableStateFlow<List<TasksInHour>>(emptyList())
     val schedule = _schedule.asStateFlow()
 
-    fun getTaskForDay(day : LocalDate){
-        val selectedDay = day.toStartOfDay()
+    fun observeTasksForDay(day: LocalDate) {
+        _selectedDay.value = day
+
+        val startDay = day.toStartOfDay()
+        val endDay = startDay + HOUR_IN_MILLIS * HOURS_IN_DAY
+
         viewModelScope.launch {
-            val dayFinish = selectedDay + HOURS_IN_DAY * HOUR_IN_MILLIS
-            val dayTasks = getTasksForDayUseCase(selectedDay, dayFinish)
-            Log.d("TASKS", "----------")
-            Log.d("TASKS", dayTasks.toString())
-            val value = getTasksForHourUseCase(dayTasks, selectedDay)
-            Log.d("TASKS", value.toString())
-            Log.d("TASKS", "----------")
-            _schedule.value = value
+            getTasksForDayUseCase(startDay, endDay)
+                .collect { dayTasks ->
+                    val grouped = getTasksForHourUseCase(dayTasks, startDay)
+                    _schedule.value = grouped
+                }
         }
+    }
+
+    fun getTaskForDay(day: LocalDate) {
+        observeTasksForDay(day)
     }
 
     companion object{
