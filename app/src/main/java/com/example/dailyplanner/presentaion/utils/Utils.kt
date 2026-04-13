@@ -12,6 +12,22 @@ fun Int.formatHourRange(endPeriod: Int): String {
     return String.format(Locale.getDefault(), "%02d:00 - %02d:00", this, endPeriod)
 }
 
+fun Long.formatHourRange(endMillis: Long): String {
+    val zone = ZoneId.systemDefault()
+
+    val startTime = Instant.ofEpochMilli(this)
+        .atZone(zone)
+        .toLocalTime()
+
+    val endTime = Instant.ofEpochMilli(endMillis)
+        .atZone(zone)
+        .toLocalTime()
+
+    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    return "${startTime.format(formatter)} - ${endTime.format(formatter)}"
+}
+
 fun tasksJoinToLine(tasks: List<Task>): String {
     return tasks.joinToString("\n") { task ->
         task.name
@@ -35,4 +51,10 @@ fun LocalDateTime.toMillis(): Long {
         .atZone(ZoneId.systemDefault())
         .toInstant()
         .toEpochMilli()
+}
+
+fun Long.toLocalDateTime(): LocalDateTime {
+    return Instant.ofEpochMilli(this)
+        .atZone(ZoneId.systemDefault())
+        .toLocalDateTime()
 }

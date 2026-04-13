@@ -7,6 +7,7 @@ import javax.inject.Inject
 class TaskMapper @Inject constructor() {
     fun entityToDbModel(task: Task): TaskDbModel {
         return TaskDbModel(
+            id = task.id,
             dateStart = task.dateStart,
             dateFinish = task.dateFinish,
             name = task.name,

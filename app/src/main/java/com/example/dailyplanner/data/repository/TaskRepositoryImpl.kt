@@ -17,4 +17,8 @@ class TaskRepositoryImpl @Inject constructor(private val taskDao: TaskDao, priva
     override suspend fun insertTask(task: Task) {
         taskDao.insertTask(mapper.entityToDbModel(task))
     }
+
+    override suspend fun deleteTsk(task: Task) {
+        taskDao.deleteTask(mapper.entityToDbModel(task))
+    }
 }

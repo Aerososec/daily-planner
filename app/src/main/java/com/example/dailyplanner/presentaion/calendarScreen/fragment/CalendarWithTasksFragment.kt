@@ -2,13 +2,15 @@ package com.example.dailyplanner.presentaion.calendarScreen.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dailyplanner.DailyPlannerApp
 import com.example.dailyplanner.R
@@ -19,9 +21,9 @@ import com.example.dailyplanner.presentaion.calendarScreen.recyclerView.TasksFor
 import com.example.dailyplanner.presentaion.taskScreen.fragment.CreateTaskFragment
 import com.example.dailyplanner.presentaion.utils.formatStringDate
 import com.example.dailyplanner.presentaion.utils.toStartOfDay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.ZoneId
 import javax.inject.Inject
 
 class CalendarWithTasksFragment : Fragment() {
@@ -30,7 +32,7 @@ class CalendarWithTasksFragment : Fragment() {
 
     private lateinit var binding: FragmentCalendarWithTasksBinding
     private lateinit var viewModel: GetTasksViewModel
-    private lateinit var adapter: TasksForHourAdapter
+    private lateinit var taskAdapter: TasksForHourAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,25 +59,41 @@ class CalendarWithTasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         setCurrentDate()
-        lifecycleScope.launch {
-            viewModel.schedule.collect {
-                adapter.submitList(it)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.schedule.collectLatest { list ->
+                    taskAdapter.submitList(list)
+                }
             }
         }
 
         chooseDay()
 
         binding.fabAddTask.setOnClickListener {
-            openCreateTaskFragment()
+            openCreateTaskFragmentForCreate()
         }
+
+        timePeriodClick()
     }
 
-    private fun openCreateTaskFragment(){
+    private fun openCreateTaskFragment(fragment: CreateTaskFragment){
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, CreateTaskFragment())
+            .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
     }
+
+    private fun openCreateTaskFragmentForPeriod(startPeriod: Long, endPeriod: Long){
+        val fragment = CreateTaskFragment.newInstance(startPeriod, endPeriod)
+        openCreateTaskFragment(fragment)
+    }
+
+    private fun openCreateTaskFragmentForCreate(){
+        val fragment = CreateTaskFragment.newInstance()
+        openCreateTaskFragment(fragment)
+    }
+
 
     private fun chooseDay() {
         binding.calendarView.setOnDateChangeListener { _, year, month, day ->
@@ -89,10 +107,19 @@ class CalendarWithTasksFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        adapter = TasksForHourAdapter()
+        taskAdapter = TasksForHourAdapter()
         binding.rvHourlyTasks.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = adapter
+            adapter = taskAdapter
+        }
+    }
+
+    private fun timePeriodClick(){
+        taskAdapter.timePeriodClick = { taskInHour ->
+            if (taskInHour.tasks.isNotEmpty()){
+                if(taskInHour.startPeriod != null && taskInHour.endPeriod != null)
+                    openCreateTaskFragmentForPeriod(taskInHour.startPeriod, taskInHour.endPeriod)
+            }
         }
     }
 

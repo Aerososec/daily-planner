@@ -21,9 +21,12 @@ class GetTasksForHourUseCase @Inject constructor() {
                 TasksInHour(
                     startHour = hour,
                     endHour = hour + 1,
-                    tasks = tasksForHour
+                    tasks = tasksForHour,
+                    startPeriod = startTime,
+                    endPeriod = endTime
                 )
             )
+
         }
 
         return tasksByHours

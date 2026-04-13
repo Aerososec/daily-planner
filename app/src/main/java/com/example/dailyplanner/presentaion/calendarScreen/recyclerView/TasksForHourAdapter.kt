@@ -13,6 +13,9 @@ import com.example.dailyplanner.presentaion.utils.tasksJoinToLine
 class TasksForHourAdapter : ListAdapter<TasksInHour, TasksForHourAdapter.TasksViewHolder>(
     TasksDiffCallBack()
 ){
+
+    var timePeriodClick : ((TasksInHour) -> Unit)? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -31,6 +34,10 @@ class TasksForHourAdapter : ListAdapter<TasksInHour, TasksForHourAdapter.TasksVi
         position: Int
     ) {
         holder.onBind(getItem(position))
+
+        holder.itemView.setOnClickListener {
+            timePeriodClick?.invoke(getItem(position))
+        }
     }
 
 
