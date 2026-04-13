@@ -63,4 +63,6 @@ dependencies {
 
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    implementation("com.google.code.gson:gson:2.11.0")
 }
