@@ -127,6 +127,6 @@ class CalendarWithTasksFragment : Fragment() {
         val today = LocalDate.now()
         loadTasksForDay(today)
         binding.calendarView.date = today.toStartOfDay()
-        binding.tvCurrentDate.text = "Сегодня, " + today.formatStringDate()
+        binding.tvCurrentDate.text = "Today, " + today.formatStringDate()
     }
 }

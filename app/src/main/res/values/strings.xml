@@ -11,4 +11,5 @@
     <string name="create_task_string">Создать задачу</string>
     <string name="end_time_string">Время окончания</string>
     <string name="start_time_string">Время начала</string>
+    <string name="daily_planner">Daily Planner</string>
 </resources>
